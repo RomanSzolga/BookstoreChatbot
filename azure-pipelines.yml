@@ -8,12 +8,14 @@ pool:
 
 steps:
 - script: |
-    python3 --version
-    python3 -m pip install --upgrade pip
+    python3 -m venv .venv
+    source .venv/bin/activate
+    python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements.txt
-  displayName: 'Install dependencies'
+  displayName: 'Install dependencies in virtualenv'
 
 - script: |
+    source .venv/bin/activate
     pip install pytest pytest-azurepipelines
     pytest
-  displayName: 'pytest'
+  displayName: 'Run pytest in virtualenv'
